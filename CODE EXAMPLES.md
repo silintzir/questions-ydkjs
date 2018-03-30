@@ -47,7 +47,7 @@ Most common reasons would be things like recursion (the function must call itsel
 	console.log (foo.count); // 0 !!!! WTF?
 	
 #### Misconception 2: `this`, when used inside a function, refers to the function's lexical scope.
-There is no way to use `this` in order to create bridges between different lexical scopes or to lookup something up in a lexical scope. It is simply not possible.
+There is no way to use `this` in order to create bridges between different lexical scopes or to lookup something up in an enclosing lexical scope. It is simply not possible.
 
 	function foo() {
 		var a = 2;
