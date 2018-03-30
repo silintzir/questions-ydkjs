@@ -31,3 +31,7 @@ Ask the questions below and stop if answer is yes in any of them:
 3. Is the function called with a context (implicit binding), otherwise known as an owning or containing object? If so, `this` is that context object.
 4. Otherwise, default the `this` (default binding). If in `strict mode`, pick `undefined`, otherwise pick the `global` object.
 
+#### How does lexical `this` get achieved?
+This can be achived using the arrow functions introduced by ES6. Instead of using the four standard rules for `this` binding, arrow functions adopt the `this` binding from the enclosing function (function or global) scope.
+
+#### How is `new` related to lexical binding?
