@@ -27,3 +27,13 @@ A possible implementation:
 	}
 	
 	console.log('hello'.repeatify(3)); // gives the expected
+
+#### An object obj is initialized with `var obj = {a: undefined};`. Explain the different in displayed result and performance for the following calls:
+
+	console.log(obj.a);
+	console.log(obj.b);
+	
+**Answer:** both calls will log `undefined` on the console. But the second call is from a performance point of view potentially slower, because engine has to lookup up in the object's prototype chain to see if b exists.
+
+
+
