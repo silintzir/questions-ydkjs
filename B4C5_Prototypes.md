@@ -33,5 +33,22 @@ We have to use the `Object.create(..)` in order to create the so called "Prototy
 	// modifies existing "Bar.prototype"
 	Object.setPrototypeOf(Bar.Prototype, Foo.Prototype);
 
+#### How can we get the prototype of an Object?
+As of ES5, the standard way to get the prototype of an object is the `Object.getPrototypeOf(..)` method.
 
-#### What is a `Proxy`? 
+#### What are the available ways to check whether Foo.protoype ever appears in the **entire** protoype chain of an object `a`?
+There are two ways to do that:
+1. Using the `instanceof` operator: `a instanceof Foo`. The problem here is that to inquire about the "ancestry" of some object only if you have some function `Foo` to test with.
+2. The second, and much cleaner, approach to `[[Prototype]]` reflection is the usage of the `.isPrototypeOf(..)` function. For example `Foo.prototype.isPrototypeOf(a)`. The big advantage here is that we don't actually need to know about function `Foo`. Its prototype alone can answer the question: `b.isPrototypeOf(a)`.
+
+#### What is the dunder proto?
+Dunder stands for "double underscore" and it refers to the `__proto__` property available in browsers and standardized in ES6! This settable property (although generally you should not change the `[[Prototype]]` of an existing object) magically retrieves thes internal `[[Prototype]]` of an object as a references and can be used to traverse the prototype chain as `a.__proto__.__proto__` and so on.
+
+#### What is nowadays the best way to create links between objects.
+As of ES5, `Object.create(..)` is the best way to create `[[Prototype]]` linkage between objects without having to use the `new` operator resembling classes and constructors, confusing `.prototype` and `.constructor` references or any other traditional OOP stuff. 
+
+`var bar = Object.create(foo)` creates a new object (`bar`) linked to the object we specified (`foo`), which gives us all the power (delegation) of the `[[Prototype]]` mechanism. 
+
+`Object.create(null)` creates an object that has an empty (aka, `null`) `[[Prototype]]` linkage, and thus the object can't delegate anywhere. Since such an object has no prototype chain, the `instanceof` operator (explained earlier) has nothing to check, so it will always return `false`. 
+
+These special empty-`[[Prototype]]` objects are often called *dictionaries* as they are typically used purely for storing data in properties, mostly because they have no possible surprise effects from any delegated properties/functions on the `[[Prototype]]` chain, and are thus purely flat data storage.
